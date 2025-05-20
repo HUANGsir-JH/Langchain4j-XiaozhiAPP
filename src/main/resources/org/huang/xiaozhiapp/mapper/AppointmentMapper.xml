@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.huang.xiaozhiapp.mapper.AppointmentMapper">
+  <resultMap id="BaseResultMap" type="org.huang.xiaozhiapp.bean.Appointment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="doctor_name" jdbcType="VARCHAR" property="doctorName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, id_card, department, `date`, `time`, doctor_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appointment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByAppointment" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from appointment
+    <where>
+        and username = #{username,jdbcType=VARCHAR}
+        and id_card = #{idCard,jdbcType=VARCHAR}
+        and department = #{department,jdbcType=VARCHAR}
+        and `date` = #{date,jdbcType=VARCHAR}
+        and `time` = #{time,jdbcType=VARCHAR}
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from appointment
+    <where>
+      username = #{username,jdbcType=VARCHAR}
+        and id_card = #{idCard,jdbcType=VARCHAR}
+        and department = #{department,jdbcType=VARCHAR}
+        and `date` = #{date,jdbcType=VARCHAR}
+        and `time` = #{time,jdbcType=VARCHAR}
+    </where>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.huang.xiaozhiapp.bean.Appointment" useGeneratedKeys="true">
+    insert into appointment (username, id_card, department, 
+      `date`, `time`, doctor_name
+      )
+    values (#{username,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{date,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.huang.xiaozhiapp.bean.Appointment" useGeneratedKeys="true">
+    insert into appointment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="date != null">
+        `date`,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+      <if test="doctorName != null">
+        doctor_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorName != null">
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.huang.xiaozhiapp.bean.Appointment">
+    update appointment
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        `date` = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorName != null">
+        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.huang.xiaozhiapp.bean.Appointment">
+    update appointment
+    set username = #{username,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      `date` = #{date,jdbcType=VARCHAR},
+      `time` = #{time,jdbcType=VARCHAR},
+      doctor_name = #{doctorName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
