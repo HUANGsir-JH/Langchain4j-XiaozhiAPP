@@ -10,3 +10,4 @@ npm i marked
 npm i element-plus
 
 ```
+详见package.json
